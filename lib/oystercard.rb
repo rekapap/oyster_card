@@ -5,6 +5,7 @@ class Oystercard
   def initialize(max_amount = DEFAULT_MAXIMUM_AMOUNT)
     @balance = 0
     @max_amount = max_amount
+    @in_journey = false
   end
 
   def top_up(amount)
@@ -17,11 +18,11 @@ class Oystercard
   end
 
   def touch_in
-
+    @in_journey = true
   end
 
   def in_journey?
-    true
+    @in_journey
   end
 
 end

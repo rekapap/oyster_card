@@ -28,4 +28,8 @@ describe Oystercard do
     expect(subject.in_journey?).to eq true
   end
 
+  it 'should not be in journey if not touched in' do
+    expect(subject.in_journey?).to eq false
+  end
+
 end
