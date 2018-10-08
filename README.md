@@ -1,3 +1,3 @@
 # Oyster Card
 
-Oyaster card project.
+Oyster card project.
