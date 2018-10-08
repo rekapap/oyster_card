@@ -32,4 +32,19 @@ describe Oystercard do
     expect(subject.in_journey?).to eq false
   end
 
+  it 'should after touch out not be in journey' do
+    subject.top_up(5)
+    subject.touch_in
+    subject.touch_out
+    expect(subject.in_journey?).to eq false
+  end
+
+  it 'initially not in a journey' do
+    expect(subject).not_to be_in_journey
+  end
+
+  it 'should have a minimum amount' do
+    expect { subject.touch_in }.to raise_error "You do not have the minimum amount for a journey"
+  end
+
 end

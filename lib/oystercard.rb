@@ -6,6 +6,7 @@ class Oystercard
     @balance = 0
     @max_amount = max_amount
     @in_journey = false
+    @min_amount = 1
   end
 
   def top_up(amount)
@@ -18,11 +19,16 @@ class Oystercard
   end
 
   def touch_in
+    raise "You do not have the minimum amount for a journey" if @balance < @min_amount
     @in_journey = true
   end
 
   def in_journey?
     @in_journey
+  end
+
+  def touch_out
+    @in_journey = false
   end
 
 end
