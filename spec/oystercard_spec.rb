@@ -2,6 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
+  let(:entry_station) { double :entry_station }
+
   it 'should have a balance by default' do
     expect(subject.balance).to eq 0
   end
@@ -17,14 +19,9 @@ describe Oystercard do
     expect { subject.top_up(1) }.to raise_error "Maximum amount = #{max_amount}"
   end
 
-  it 'should deduct amount from balance' do
-    subject.top_up(5)
-    expect { subject.deduct(3) }.to change { subject.balance }.by -3
-  end
-
   it 'should touch into a journey' do
     subject.top_up(5)
-    subject.touch_in
+    subject.touch_in(entry_station)
     expect(subject.in_journey?).to eq true
   end
 
@@ -34,7 +31,7 @@ describe Oystercard do
 
   it 'should after touch out not be in journey' do
     subject.top_up(5)
-    subject.touch_in
+    subject.touch_in(entry_station)
     subject.touch_out
     expect(subject.in_journey?).to eq false
   end
@@ -44,7 +41,7 @@ describe Oystercard do
   end
 
   it "should raise an error if the balance doesn't reach the minimum amount" do
-    expect { subject.touch_in }.to raise_error 'You do not have the minimum amount for a journey'
+    expect { subject.touch_in(entry_station) }.to raise_error 'You do not have the minimum amount for a journey'
   end
 
   it 'should have a minimum amount with 1 as a constant' do
@@ -53,8 +50,21 @@ describe Oystercard do
 
   it 'should deduct by the minimum fare if touch out' do
     subject.top_up(5)
-    subject.touch_in
+    subject.touch_in(entry_station)
     expect { subject.touch_out }.to change { subject.balance }.by -Oystercard::DEFAULT_MINIMUM_AMOUNT
+  end
+
+  it 'should store entry_station' do
+    subject.top_up(5)
+    subject.touch_in(entry_station)
+    expect(subject.entry_station).to eq entry_station
+  end
+
+  it 'should set entry_station to nil after touching out' do
+    subject.top_up(5)
+    subject.touch_in(entry_station)
+    subject.touch_out
+    expect(subject.entry_station).to eq nil
   end
 
 end
