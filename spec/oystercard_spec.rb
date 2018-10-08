@@ -43,8 +43,18 @@ describe Oystercard do
     expect(subject).not_to be_in_journey
   end
 
-  it 'should have a minimum amount' do
-    expect { subject.touch_in }.to raise_error "You do not have the minimum amount for a journey"
+  it "should raise an error if the balance doesn't reach the minimum amount" do
+    expect { subject.touch_in }.to raise_error 'You do not have the minimum amount for a journey'
+  end
+
+  it 'should have a minimum amount with 1 as a constant' do
+    expect(Oystercard::DEFAULT_MINIMUM_AMOUNT).to eq 1
+  end
+
+  it 'should deduct by the minimum fare if touch out' do
+    subject.top_up(5)
+    subject.touch_in
+    expect { subject.touch_out }.to change { subject.balance }.by -Oystercard::DEFAULT_MINIMUM_AMOUNT
   end
 
 end
