@@ -17,4 +17,15 @@ describe Oystercard do
     expect { subject.top_up(1) }.to raise_error "Maximum amount = #{max_amount}"
   end
 
+  it 'should deduct amount from balance' do
+    subject.top_up(5)
+    expect { subject.deduct(3) }.to change { subject.balance }.by -3
+  end
+
+  it 'should touch into a journey' do
+    subject.top_up(5)
+    subject.touch_in
+    expect(subject.in_journey?).to eq true
+  end
+
 end
