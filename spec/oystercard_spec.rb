@@ -74,7 +74,10 @@ describe Oystercard do
       subject.touch_out(exit_station)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journeys).to eq [{ entry_station => exit_station }, { entry_station => exit_station }]
+      expect(subject.journeys).to eq [
+        { 'entry station' => entry_station, 'exit station' => exit_station },
+        { 'entry station' => entry_station, 'exit station' => exit_station }
+      ]
     end
 
     it 'should store a lists of journeys' do
