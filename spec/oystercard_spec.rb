@@ -43,7 +43,6 @@ describe Oystercard do
   end
 
   context 'top up and touch in' do
-
     before(:each) do
       subject.top_up(5)
       subject.touch_in(entry_station)
