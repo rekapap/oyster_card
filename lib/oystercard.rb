@@ -1,3 +1,4 @@
+# Oystercard
 class Oystercard
   attr_reader :balance, :entry_station, :journeys
   DEFAULT_MAXIMUM_AMOUNT = 90
@@ -17,8 +18,8 @@ class Oystercard
   end
 
   def touch_in(entry_station)
-    raise "you have been fined for not touching out" unless @entry_station.nil?
-    raise "You do not have the minimum amount for a journey" if @balance < @min_amount
+    raise 'you have been fined for not touching out' unless @entry_station.nil?
+    raise 'You do not have the minimum amount for a journey' if @balance < @min_amount
     @entry_station = entry_station
   end
 
