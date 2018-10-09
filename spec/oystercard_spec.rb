@@ -47,8 +47,11 @@ describe Oystercard do
       subject.top_up(5)
       subject.touch_in(entry_station)
     end
+    it 'fines the person if touch in twice' do
+      expect{subject.touch_in(entry_station)}.to raise_error "you have been fined for not touching out"
+    end
 
-    it 'should touch into a journey' do
+     it 'should touch into a journey' do
       expect(subject.in_journey?).to eq true
     end
 
