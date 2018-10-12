@@ -1,5 +1,4 @@
 # JourneyLog
-
 class JourneyLog
   def initialize(journey_class:)
     @journey_class = journey_class
@@ -29,5 +28,4 @@ class JourneyLog
   def current_journey
     @current_journey ||= @journey_class.new
   end
-
 end
