@@ -49,5 +49,4 @@ class Oystercard
     @journeylog.finish(nil)
     raise BEEN_FINED
   end
-
 end

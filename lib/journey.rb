@@ -1,5 +1,4 @@
 # Journey
-
 class Journey
   attr_reader :entry_station, :exit_station
   PENALTY_FARE = 6
@@ -23,7 +22,7 @@ class Journey
 
   def fare
     return PENALTY_FARE unless complete?
-    MIN_FARE
+    calculate_fare
   end
 
   private
@@ -34,5 +33,11 @@ class Journey
 
   def complete
     @complete = true
+  end
+
+  def calculate_fare
+    enter_zone = @entry_station.zone
+    exit_zone = @exit_station.zone
+    (enter_zone - exit_zone).abs + 1
   end
 end
