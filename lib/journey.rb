@@ -11,7 +11,7 @@ class Journey
   end
 
   def finish(exit_station)
-    exit(exit_station)
+    exit(exit_station: exit_station)
     complete if entry_station && exit_station
     self
   end
@@ -27,7 +27,7 @@ class Journey
 
   private
 
-  def exit(exit_station)
+  def exit(exit_station: nil)
     @exit_station = exit_station
   end
 
